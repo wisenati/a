@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Affiliate Equity - Earn money by promoting our platform. Get paid for your referrals and activities."
+    />
+    <meta
+      name="keywords"
+      content="affiliate, equity, earn money, referral program, passive income"
+    />
+    <meta name="author" content="Affiliate Equity" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Affiliate Equity - Earn Money Online" />
+    <meta
+      property="og:description"
+      content="Join Affiliate Equity and start earning money through our referral program."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://affiliateequity.com" />
+    <meta
+      property="og:image"
+      content="https://affiliateequity.com/images/og-image.jpg"
+    />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <title>Affiliate Equity - Earn Money Online</title>
+    <style>
+      :root {
+        --primary-color: #4a6bff;
+        --secondary-color: #ff6b6b;
+        --dark-color: #2c3e50;
+        --light-color: #f8f9fa;
+        --success-color: #28a745;
+        --warning-color: #ffc107;
+        --danger-color: #dc3545;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f7ff;
+        color: var(--dark-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--primary-color), #6c5ce7);
+        color: white;
+        padding: 20px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 100;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        font-size: 32px;
+      }
+
+      .main-content {
+        min-height: calc(100vh - 180px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 0;
+      }
+
+      .intro-section {
+        text-align: center;
+        margin-bottom: 50px;
+        animation: fadeIn 1s ease;
+      }
+
+      .intro-section h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .intro-content {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .intro-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      }
+
+      .intro-content p {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        line-height: 1.8;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(to right, var(--primary-color), #6c5ce7);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(74, 107, 255, 0.4);
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-secondary {
+        background: linear-gradient(to right, var(--secondary-color), #ff8e8e);
+      }
+
+      .btn-secondary:hover {
+        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+      }
+
+      .form-container {
+        display: none;
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        max-width: 500px;
+        margin: 0 auto;
+        animation: slideUp 0.5s ease;
+      }
+
+      .form-container.active {
+        display: block;
+      }
+
+      .form-title {
+        text-align: center;
+        margin-bottom: 30px;
+        color: var(--primary-color);
+        font-size: 1.8rem;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-color);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        outline: none;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        padding: 30px;
+        position: relative;
+        animation: slideUp 0.4s ease;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #999;
+        transition: var(--transition);
+      }
+
+      .close-modal:hover {
+        color: var(--danger-color);
+      }
+
+      .modal-title {
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+      }
+
+      .payment-details {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+
+      .payment-details p {
+        margin-bottom: 10px;
+        font-size: 15px;
+      }
+
+      .payment-details strong {
+        color: var(--primary-color);
+      }
+
+      .countdown {
+        font-size: 1.2rem;
+        text-align: center;
+        margin: 20px 0;
+        color: var(--primary-color);
+        font-weight: 700;
+      }
+
+      .success-message {
+        text-align: center;
+        padding: 20px;
+        background-color: rgba(40, 167, 69, 0.1);
+        border-radius: 5px;
+        margin-top: 20px;
+        display: none;
+      }
+
+      .success-message i {
+        font-size: 50px;
+        color: var(--success-color);
+        margin-bottom: 15px;
+      }
+
+      .success-message p {
+        font-size: 18px;
+        color: var(--dark-color);
+      }
+
+      footer {
+        background-color: var(--dark-color);
+        color: white;
+        padding: 30px 0;
+        text-align: center;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .social-links {
+        margin: 20px 0;
+      }
+
+      .social-links a {
+        color: white;
+        margin: 0 10px;
+        font-size: 20px;
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        color: var(--secondary-color);
+      }
+
+      .copyright {
+        font-size: 14px;
+        opacity: 0.8;
+      }
+
+      /* Tour Guide Elements */
+      .tour-highlight {
+        position: relative;
+      }
+
+      .tour-tooltip {
+        position: absolute;
+        background-color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        max-width: 300px;
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .tour-tooltip::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+      }
+
+      .tour-tooltip.top::after {
+        bottom: -20px;
+        left: 20px;
+        border-top-color: white;
+      }
+
+      .tour-tooltip.right::after {
+        left: -20px;
+        top: 20px;
+        border-right-color: white;
+      }
+
+      .tour-tooltip.bottom::after {
+        top: -20px;
+        left: 20px;
+        border-bottom-color: white;
+      }
+
+      .tour-tooltip.left::after {
+        right: -20px;
+        top: 20px;
+        border-left-color: white;
+      }
+
+      .tour-tooltip h3 {
+        margin-bottom: 10px;
+        color: var(--primary-color);
+      }
+
+      .tour-tooltip p {
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      .tour-tooltip .tour-nav {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .tour-tooltip .tour-nav button {
+        padding: 5px 15px;
+        border: none;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .tour-tooltip .tour-nav button.skip {
+        background-color: #999;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .intro-section h1 {
+          font-size: 2rem;
+        }
+
+        .intro-content,
+        .form-container {
+          padding: 20px;
+        }
+
+        .btn {
+          padding: 10px 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 22px;
+        }
+
+        .intro-section h1 {
+          font-size: 1.8rem;
+        }
+
+        .form-title {
+          font-size: 1.5rem;
+        }
+
+        .modal-content {
+          padding: 20px;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container header-content">
+        <div class="logo">
+          <i class="fas fa-hand-holding-usd"></i>
+          <span>Affiliate Equity</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="intro-section">
+        <div class="container">
+          <div class="intro-content">
+            <h1>Welcome to Affiliate Equity</h1>
+            <p>
+              Affiliate Equity is a revolutionary platform that pays you for
+              promoting our services and bringing new users to our ecosystem.
+            </p>
+            <p>
+              With our unique compensation plan, you can earn passive income by
+              simply sharing your referral link with friends, family, and your
+              social network.
+            </p>
+            <p>
+              We offer multiple earning streams including direct referrals, team
+              bonuses, and residual income from your network's activities.
+            </p>
+            <p>
+              Our platform is designed to be simple, transparent, and rewarding.
+              Whether you're looking for a side hustle or a full-time income
+              opportunity, Affiliate Equity provides the tools and support you
+              need to succeed.
+            </p>
+            <p>
+              Join thousands of satisfied affiliates who are already earning
+              with us. Your financial freedom starts here!
+            </p>
+            <button
+              id="continueBtn"
+              class="btn btn-secondary"
+              style="margin-top: 20px"
+            >
+              Continue to Registration
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
+        <div id="registrationForm" class="form-container">
+          <h2 class="form-title">Create Your Account</h2>
+          <form id="signupForm">
+            <div class="form-group tour-highlight" id="username-tour">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                required
+                placeholder="Choose a username"
+              />
+            </div>
+            <div class="form-group tour-highlight" id="phone-tour">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                class="form-control"
+                required
+                placeholder="Your active phone number"
+              />
+            </div>
+            <div class="form-group tour-highlight" id="password-tour">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                required
+                placeholder="Create a strong password"
+              />
+            </div>
+            <div class="form-group tour-highlight" id="coupon-tour">
+              <label for="coupon">Coupon Code</label>
+              <input
+                type="text"
+                id="coupon"
+                class="form-control"
+                required
+                placeholder="Enter your coupon code"
+              />
+              <small class="text-muted"
+                >Don't have a coupon? You'll need to purchase one to
+                join.</small
+              >
+            </div>
+            <button type="submit" class="btn" style="width: 100%">
+              Register Now
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Coupon Payment Modal -->
+    <div id="paymentModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <h3 class="modal-title">Purchase Coupon Code</h3>
+        <div class="payment-details">
+          <p>
+            To join Affiliate Equity, you need to purchase a coupon code for
+            <strong>NGN 1,000</strong>.
+          </p>
+          <p><strong>Account Name:</strong> Divine Favour</p>
+          <p><strong>Account Number:</strong> 4212341665</p>
+          <p><strong>Bank:</strong> Nombank MFB</p>
+          <p>
+            After payment, enter the sender name below to verify your payment.
+          </p>
+          <p><em>Note: Do not close this website after payment.</em></p>
+        </div>
+        <form id="paymentVerificationForm">
+          <div class="form-group">
+            <label for="senderName"
+              >Sender Name (as it appears in bank transaction)</label
+            >
+            <input
+              type="text"
+              id="senderName"
+              class="form-control"
+              required
+              placeholder="Enter sender name from bank"
+            />
+          </div>
+          <button type="submit" class="btn" style="width: 100%">
+            Verify Payment
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Payment Review Modal -->
+    <div id="reviewModal" class="modal">
+      <div class="modal-content">
+        <h3 class="modal-title">Payment Under Review</h3>
+        <div class="payment-details">
+          <p>
+            Your payment is being reviewed by our CEO. This usually takes less
+            than a minute.
+          </p>
+          <p>Please wait while we verify your transaction...</p>
+        </div>
+        <div class="countdown" id="countdown">30 seconds remaining</div>
+        <!-- <div class="success-message" id="successMessage">
+          <i class="fas fa-check-circle"></i>
+          <p>
+            Payment verified successfully! Your coupon code is:
+            <strong id="verifiedCoupon"></strong>
+          </p>
+          <p>You can now complete your registration.</p>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Tour Tooltip -->
+    <div id="tourTooltip" class="tour-tooltip">
+      <h3 id="tourTitle">Welcome to Affiliate Equity</h3>
+      <p id="tourContent">
+        Let's take a quick tour to help you get started with the registration
+        process.
+      </p>
+      <div class="tour-nav">
+        <button id="skipTour" class="skip">Skip Tour</button>
+        <button id="nextTour">Next <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container footer-content">
+        <div class="logo">
+          <i class="fas fa-hand-holding-usd"></i>
+          <span>Affiliate Equity</span>
+        </div>
+        <!-- <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div> -->
+        <p class="copyright">© 2025 Affiliate Equity. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Elements
+        const continueBtn = document.getElementById("continueBtn");
+        const registrationForm = document.getElementById("registrationForm");
+        const signupForm = document.getElementById("signupForm");
+        const paymentModal = document.getElementById("paymentModal");
+        const closeModal = document.getElementById("closeModal");
+        const reviewModal = document.getElementById("reviewModal");
+        const paymentVerificationForm = document.getElementById(
+          "paymentVerificationForm"
+        );
+        const countdownElement = document.getElementById("countdown");
+        const successMessage = document.getElementById("successMessage");
+        const verifiedCoupon = document.getElementById("verifiedCoupon");
+        const couponInput = document.getElementById("coupon");
+
+        // Tour elements
+        const tourTooltip = document.getElementById("tourTooltip");
+        const tourTitle = document.getElementById("tourTitle");
+        const tourContent = document.getElementById("tourContent");
+        const nextTourBtn = document.getElementById("nextTour");
+        const skipTourBtn = document.getElementById("skipTour");
+
+        // Tour steps
+        const tourSteps = [
+          {
+            element: "username-tour",
+            title: "Username",
+            content:
+              "Choose a unique username that will identify you on our platform. This will be visible to your referrals.",
+            position: "bottom",
+          },
+          {
+            element: "phone-tour",
+            title: "Phone Number",
+            content:
+              "Enter your active phone number. This will be used for account verification and important notifications.",
+            position: "bottom",
+          },
+          {
+            element: "password-tour",
+            title: "Password",
+            content:
+              "Create a strong password with at least 8 characters, including numbers and special characters.",
+            position: "bottom",
+          },
+          {
+            element: "coupon-tour",
+            title: "Coupon Code",
+            content:
+              "You need a valid coupon code to register. If you don't have one, you'll be prompted to purchase after form submission.",
+            position: "top",
+          },
+        ];
+
+        let currentStep = 0;
+        let tourActive = false;
+
+        // Continue to registration
+        continueBtn.addEventListener("click", function () {
+          this.style.display = "none";
+          registrationForm.classList.add("active");
+
+          // Start tour after a short delay
+          setTimeout(() => {
+            startTour();
+          }, 500);
+        });
+
+        // Form submission
+        signupForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const couponCode = couponInput.value.trim();
+
+          if (couponCode === "QUITY4REAL") {
+            // Valid coupon - simulate successful registration
+            alert("Registration successful! Welcome to Affiliate Equity.");
+            // In a real app, you would submit the form to your server
+          } else {
+            // Invalid coupon - show payment modal
+            paymentModal.classList.add("active");
+            document.body.style.overflow = "hidden";
+          }
+        });
+
+        // Close modal
+        closeModal.addEventListener("click", function () {
+          paymentModal.classList.remove("active");
+          document.body.style.overflow = "auto";
+        });
+
+        // Payment verification
+        paymentVerificationForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const senderName = document.getElementById("senderName").value.trim();
+
+          if (senderName) {
+            paymentModal.classList.remove("active");
+            reviewModal.classList.add("active");
+
+            // Start countdown
+            let seconds = 30;
+            const countdownInterval = setInterval(() => {
+              seconds--;
+              countdownElement.textContent = `${seconds} seconds remaining`;
+
+              if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                countdownElement.style.display = "none";
+                verifiedCoupon.textContent = "QUITY4REAL";
+                successMessage.style.display = "block";
+
+                // Auto-fill coupon code after verification
+                setTimeout(() => {
+                  reviewModal.classList.remove("active");
+                  document.body.style.overflow = "auto";
+                  couponInput.value = "QUITY4REAL";
+                }, 3000);
+              }
+            }, 1000);
+          }
+        });
+
+        // Prevent closing the website
+        window.addEventListener("beforeunload", function (e) {
+          if (
+            paymentModal.classList.contains("active") ||
+            reviewModal.classList.contains("active")
+          ) {
+            e.preventDefault();
+            e.returnValue =
+              "Are you sure you want to leave? Your payment verification might be interrupted.";
+            return e.returnValue;
+          }
+        });
+
+        // Tour functions
+        function startTour() {
+          tourActive = true;
+          currentStep = 0;
+          showTourStep();
+        }
+
+        function showTourStep() {
+          if (currentStep >= tourSteps.length) {
+            endTour();
+            return;
+          }
+
+          const step = tourSteps[currentStep];
+          const element = document.getElementById(step.element);
+
+          // Position the tooltip
+          tourTooltip.style.display = "block";
+          tourTooltip.className = `tour-tooltip ${step.position}`;
+          tourTitle.textContent = step.title;
+          tourContent.textContent = step.content;
+
+          const rect = element.getBoundingClientRect();
+
+          switch (step.position) {
+            case "top":
+              tourTooltip.style.top = `${
+                rect.top - tourTooltip.offsetHeight - 10
+              }px`;
+              tourTooltip.style.left = `${
+                rect.left + rect.width / 2 - tourTooltip.offsetWidth / 2
+              }px`;
+              break;
+            case "right":
+              tourTooltip.style.top = `${
+                rect.top + rect.height / 2 - tourTooltip.offsetHeight / 2
+              }px`;
+              tourTooltip.style.left = `${rect.right + 10}px`;
+              break;
+            case "bottom":
+              tourTooltip.style.top = `${rect.bottom + 10}px`;
+              tourTooltip.style.left = `${
+                rect.left + rect.width / 2 - tourTooltip.offsetWidth / 2
+              }px`;
+              break;
+            case "left":
+              tourTooltip.style.top = `${
+                rect.top + rect.height / 2 - tourTooltip.offsetHeight / 2
+              }px`;
+              tourTooltip.style.left = `${
+                rect.left - tourTooltip.offsetWidth - 10
+              }px`;
+              break;
+          }
+
+          // Highlight the element
+          element.style.boxShadow = "0 0 0 3px rgba(74, 107, 255, 0.5)";
+          element.style.transition = "box-shadow 0.3s ease";
+        }
+
+        function endTour() {
+          tourTooltip.style.display = "none";
+          tourActive = false;
+
+          // Remove highlights
+          tourSteps.forEach((step) => {
+            const element = document.getElementById(step.element);
+            if (element) {
+              element.style.boxShadow = "none";
+            }
+          });
+        }
+
+        nextTourBtn.addEventListener("click", function () {
+          // Remove highlight from current step
+          if (currentStep < tourSteps.length) {
+            const currentElement = document.getElementById(
+              tourSteps[currentStep].element
+            );
+            currentElement.style.boxShadow = "none";
+          }
+
+          currentStep++;
+          showTourStep();
+        });
+
+        skipTourBtn.addEventListener("click", endTour);
+
+        // Close modal when clicking outside
+        window.addEventListener("click", function (e) {
+          if (e.target === paymentModal) {
+            paymentModal.classList.remove("active");
+            document.body.style.overflow = "auto";
+          }
+          if (e.target === reviewModal) {
+            // Don't allow closing review modal by clicking outside
+            e.preventDefault();
+          }
+        });
+
+        // Add some animations for better UX
+        const introContent = document.querySelector(".intro-content");
+        introContent.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px)";
+          this.style.boxShadow = "0 15px 40px rgba(0, 0, 0, 0.1)";
+        });
+
+        introContent.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+          this.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.05)";
+        });
+      });
+    </script>
+  </body>
+</html>
