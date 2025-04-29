@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMO State - Citizen Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+    <style>
+      :root {
+        --primary-color: #0056b3;
+        --primary-light: #e6f0ff;
+        --secondary-color: #003366;
+        --accent-color: #ffcc00;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        --success-color: #28a745;
+        --warning-color: #ffc107;
+        --error-color: #dc3545;
+        --gray-light: #e9ecef;
+        --gray-medium: #adb5bd;
+        --gray-dark: #495057;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f5f7fa;
+        color: var(--dark-color);
+        line-height: 1.6;
+      }
+
+      .dashboard-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        min-height: 100vh;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        position: relative;
+        z-index: 10;
+      }
+
+      .sidebar-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--gray-light);
+        text-align: center;
+      }
+
+      .sidebar-logo {
+        width: 120px;
+        height: auto;
+      }
+
+      .sidebar-nav {
+        padding: 1.5rem 0;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 0.8rem 1.5rem;
+        color: var(--gray-dark);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .nav-item:hover {
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+      }
+
+      .nav-item.active {
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+        border-left: 3px solid var(--primary-color);
+      }
+
+      .nav-item i {
+        margin-right: 0.8rem;
+        font-size: 1.1rem;
+        width: 20px;
+        text-align: center;
+      }
+
+      .sidebar-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        border-top: 1px solid var(--gray-light);
+        text-align: center;
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+      }
+
+      .user-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        margin-right: 0.8rem;
+      }
+
+      .user-info {
+        flex: 1;
+      }
+
+      .user-name {
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 0.1rem;
+      }
+
+      .user-lga {
+        font-size: 0.75rem;
+        color: var(--gray-medium);
+      }
+
+      /* Main Content Styles */
+      .main-content {
+        padding: 1.5rem;
+        background-color: #f5f7fa;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .page-title h1 {
+        font-size: 1.5rem;
+        color: var(--secondary-color);
+      }
+
+      .page-title p {
+        font-size: 0.9rem;
+        color: var(--gray-medium);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .notification-btn {
+        position: relative;
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        color: var(--gray-dark);
+        cursor: pointer;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: var(--error-color);
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logout-btn {
+        background: none;
+        border: none;
+        color: var(--error-color);
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      /* Stats Cards */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+
+      .stat-icon.pending {
+        background-color: rgba(255, 204, 0, 0.1);
+        color: var(--warning-color);
+      }
+
+      .stat-icon.resolved {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: var(--success-color);
+      }
+
+      .stat-icon.total {
+        background-color: rgba(0, 86, 179, 0.1);
+        color: var(--primary-color);
+      }
+
+      .stat-icon.new {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: var(--error-color);
+      }
+
+      .stat-value {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+      }
+
+      .stat-label {
+        color: var(--gray-medium);
+        font-size: 0.9rem;
+      }
+
+      /* Complaint Feed */
+      .complaint-feed {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        overflow: hidden;
+      }
+
+      .feed-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--gray-light);
+      }
+
+      .feed-title {
+        font-weight: 600;
+        color: var(--secondary-color);
+      }
+
+      .feed-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .filter-dropdown {
+        position: relative;
+      }
+
+      .filter-btn {
+        background: white;
+        border: 1px solid var(--gray-light);
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+
+      .filter-dropdown-content {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 0.5rem 0;
+        min-width: 180px;
+        z-index: 100;
+        display: none;
+      }
+
+      .filter-dropdown:hover .filter-dropdown-content {
+        display: block;
+      }
+
+      .filter-option {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .filter-option:hover {
+        background-color: var(--primary-light);
+      }
+
+      .new-complaint-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .new-complaint-btn:hover {
+        background-color: var(--secondary-color);
+      }
+
+      /* Complaint Items */
+      .complaint-item {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--gray-light);
+        transition: var(--transition);
+      }
+
+      .complaint-item:hover {
+        background-color: var(--primary-light);
+      }
+
+      .complaint-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.8rem;
+      }
+
+      .complaint-user {
+        display: flex;
+        align-items: center;
+      }
+
+      .complaint-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.8rem;
+        margin-right: 0.8rem;
+      }
+
+      .complaint-user-info h4 {
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .complaint-user-info p {
+        font-size: 0.8rem;
+        color: var(--gray-medium);
+      }
+
+      .complaint-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .complaint-date {
+        font-size: 0.8rem;
+        color: var(--gray-medium);
+      }
+
+      .complaint-status {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-weight: 500;
+      }
+
+      .status-pending {
+        background-color: rgba(255, 204, 0, 0.1);
+        color: var(--warning-color);
+      }
+
+      .status-resolved {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: var(--success-color);
+      }
+
+      .status-new {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: var(--error-color);
+      }
+
+      .complaint-category {
+        font-size: 0.8rem;
+        color: var(--primary-color);
+        background-color: var(--primary-light);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        display: inline-block;
+        margin-bottom: 0.8rem;
+      }
+
+      .complaint-title {
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+      }
+
+      .complaint-description {
+        font-size: 0.9rem;
+        color: var(--gray-dark);
+        margin-bottom: 1rem;
+      }
+
+      .complaint-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+      }
+
+      .complaint-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .action-btn {
+        background: none;
+        border: none;
+        color: var(--gray-medium);
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        transition: var(--transition);
+      }
+
+      .action-btn:hover {
+        color: var(--primary-color);
+      }
+
+      .action-btn i {
+        font-size: 0.9rem;
+      }
+
+      .complaint-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .star {
+        color: var(--gray-light);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .star.filled {
+        color: var(--warning-color);
+      }
+
+      /* Complaint Replies */
+      .complaint-replies {
+        margin-top: 1rem;
+        padding-left: 2rem;
+        border-left: 2px solid var(--gray-light);
+      }
+
+      .reply-item {
+        padding: 1rem 0;
+        border-bottom: 1px dashed var(--gray-light);
+      }
+
+      .reply-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+
+      .reply-user {
+        display: flex;
+        align-items: center;
+      }
+
+      .reply-avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.7rem;
+        margin-right: 0.6rem;
+      }
+
+      .reply-user-info h5 {
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .reply-user-info p {
+        font-size: 0.7rem;
+        color: var(--gray-medium);
+      }
+
+      .reply-date {
+        font-size: 0.7rem;
+        color: var(--gray-medium);
+      }
+
+      .reply-content {
+        font-size: 0.85rem;
+        color: var(--gray-dark);
+        margin-bottom: 0.5rem;
+      }
+
+      .reply-actions {
+        display: flex;
+        gap: 0.8rem;
+      }
+
+      .reply-action-btn {
+        background: none;
+        border: none;
+        color: var(--gray-medium);
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .reply-action-btn:hover {
+        color: var(--primary-color);
+      }
+
+      .add-reply {
+        margin-top: 1rem;
+        display: flex;
+        gap: 0.8rem;
+      }
+
+      .reply-input {
+        flex: 1;
+        padding: 0.6rem 0.8rem;
+        border: 1px solid var(--gray-light);
+        border-radius: 4px;
+        font-size: 0.85rem;
+        resize: none;
+        min-height: 40px;
+      }
+
+      .reply-submit {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 0 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .reply-submit:hover {
+        background-color: var(--secondary-color);
+      }
+
+      /* New Complaint Modal */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal {
+        background: white;
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transform: translateY(20px);
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active .modal {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-title {
+        font-weight: 600;
+        color: var(--secondary-color);
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: var(--gray-medium);
+      }
+
+      .modal-body {
+        padding: 1.5rem;
+      }
+
+      .modal-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+      }
+
+      .modal-btn {
+        padding: 0.6rem 1.2rem;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .modal-btn.cancel {
+        background: white;
+        border: 1px solid var(--gray-light);
+        color: var(--gray-dark);
+      }
+
+      .modal-btn.cancel:hover {
+        background-color: var(--gray-light);
+      }
+
+      .modal-btn.submit {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+      }
+
+      .modal-btn.submit:hover {
+        background-color: var(--secondary-color);
+      }
+
+      .form-group {
+        margin-bottom: 1.2rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--gray-dark);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid var(--gray-light);
+        border-radius: 4px;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        outline: none;
+      }
+
+      textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .select-wrapper {
+        position: relative;
+      }
+
+      .select-wrapper::after {
+        content: "\f078";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        color: var(--gray-medium);
+        pointer-events: none;
+      }
+
+      select.form-control {
+        appearance: none;
+        padding-right: 2.5rem;
+      }
+
+      .file-upload {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        border: 2px dashed var(--gray-light);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .file-upload:hover {
+        border-color: var(--primary-color);
+      }
+
+      .file-upload i {
+        font-size: 2rem;
+        color: var(--gray-medium);
+        margin-bottom: 0.5rem;
+      }
+
+      .file-upload p {
+        color: var(--gray-medium);
+        text-align: center;
+      }
+
+      .file-upload input {
+        display: none;
+      }
+
+      .preview-image {
+        max-width: 100%;
+        max-height: 200px;
+        margin-top: 1rem;
+        border-radius: 4px;
+        display: none;
+      }
+
+      /* Loading Spinner */
+      .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(0, 86, 179, 0.1);
+        border-top: 4px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .dashboard-container {
+          grid-template-columns: 70px 1fr;
+        }
+
+        .sidebar-header {
+          padding: 1rem 0.5rem;
+        }
+
+        .sidebar-logo {
+          width: 50px;
+        }
+
+        .nav-item span {
+          display: none;
+        }
+
+        .nav-item i {
+          margin-right: 0;
+          font-size: 1.2rem;
+        }
+
+        .user-profile {
+          flex-direction: column;
+          align-items: center;
+          padding: 0.5rem;
+        }
+
+        .user-info {
+          display: none;
+        }
+
+        .user-avatar {
+          margin-right: 0;
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .header-actions {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .dashboard-container {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          display: none;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .complaint-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.8rem;
+        }
+
+        .complaint-meta {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .complaint-replies {
+          padding-left: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <img
+            src="https://axxpoint.imostate.gov.ng/images/imo-state-logo.png"
+            alt="IMO State Logo"
+            class="sidebar-logo"
+          />
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active" id="dashboardLink">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" class="nav-item" id="myComplaintsLink">
+            <i class="fas fa-bullhorn"></i>
+            <span>My Complaints</span>
+          </a>
+          <a href="#" class="nav-item" id="newComplaintLink">
+            <i class="fas fa-plus-circle"></i>
+            <span>New Complaint</span>
+          </a>
+          <a href="#" class="nav-item" id="notificationsLink">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+          </a>
+          <a href="#" class="nav-item" id="profileLink">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
+          <a href="#" class="nav-item" id="settingsLink">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="user-profile" id="userProfileSidebar">
+            <!-- Dynamically populated by JavaScript -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="header">
+          <div class="page-title">
+            <h1>Citizen Dashboard</h1>
+            <p>Track and manage your feedback and complaints</p>
+          </div>
+
+          <div class="header-actions">
+            <button class="notification-btn" id="notificationBtn">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge" id="notificationBadge">0</span>
+            </button>
+            <button class="logout-btn" id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid" id="statsGrid">
+          <!-- Dynamically populated by JavaScript -->
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+          </div>
+        </div>
+
+        <!-- Complaint Feed -->
+        <div class="complaint-feed">
+          <div class="feed-header">
+            <h3 class="feed-title">Recent Complaints</h3>
+            <div class="feed-actions">
+              <div class="filter-dropdown">
+                <button class="filter-btn">
+                  <i class="fas fa-filter"></i>
+                  <span>Filter</span>
+                </button>
+                <div class="filter-dropdown-content">
+                  <div class="filter-option" data-filter="all">
+                    All Complaints
+                  </div>
+                  <div class="filter-option" data-filter="mine">
+                    My Complaints
+                  </div>
+                  <div class="filter-option" data-filter="pending">Pending</div>
+                  <div class="filter-option" data-filter="resolved">
+                    Resolved
+                  </div>
+                </div>
+              </div>
+              <button class="new-complaint-btn" id="newComplaintBtn">
+                <i class="fas fa-plus"></i>
+                <span>New Complaint</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="complaintsContainer">
+            <!-- Dynamically populated by JavaScript -->
+            <div class="loading-spinner">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- New Complaint Modal -->
+    <div class="modal-overlay" id="complaintModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Submit New Complaint</h3>
+          <button class="modal-close" id="modalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="complaintForm">
+            <div class="form-group">
+              <label for="complaintCategory" class="form-label">Category</label>
+              <div class="select-wrapper">
+                <select id="complaintCategory" class="form-control" required>
+                  <option value="" disabled selected>Select category</option>
+                  <option value="Roads & Transportation">
+                    Roads & Transportation
+                  </option>
+                  <option value="Public Health">Public Health</option>
+                  <option value="Education">Education</option>
+                  <option value="Security">Security</option>
+                  <option value="Water Supply">Water Supply</option>
+                  <option value="Electricity">Electricity</option>
+                  <option value="Waste Management">Waste Management</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="complaintTitle" class="form-label">Title</label>
+              <input
+                type="text"
+                id="complaintTitle"
+                class="form-control"
+                placeholder="Brief description of your complaint"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="complaintDescription" class="form-label"
+                >Description</label
+              >
+              <textarea
+                id="complaintDescription"
+                class="form-control"
+                placeholder="Provide detailed information about your complaint..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Upload Image (Optional)</label>
+              <div class="file-upload" id="fileUpload">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to upload image or drag and drop</p>
+                <input type="file" id="complaintImage" accept="image/*" />
+                <img id="imagePreview" class="preview-image" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="complaintLocation" class="form-label">Location</label>
+              <input
+                type="text"
+                id="complaintLocation"
+                class="form-control"
+                placeholder="Where is this issue located?"
+                required
+              />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-btn cancel" id="cancelComplaint">Cancel</button>
+          <button class="modal-btn submit" id="submitComplaint">
+            Submit Complaint
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCgOvIkDCcS3DFrt5f6Y7pYmjCoHIfDF9U",
+        authDomain: "moniebase-b4b4d.firebaseapp.com",
+        projectId: "moniebase-b4b4d",
+        storageBucket: "moniebase-b4b4d.appspot.com",
+        messagingSenderId: "1009678808253",
+        appId: "1:1009678808253:android:ff94e94c52bad2db7973d4",
+        databaseURL: "https://moniebase-b4b4d-default-rtdb.firebaseio.com/",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const database = firebase.database();
+
+      // DOM Elements
+      const userProfileSidebar = document.getElementById("userProfileSidebar");
+      const statsGrid = document.getElementById("statsGrid");
+      const complaintsContainer = document.getElementById(
+        "complaintsContainer"
+      );
+      const notificationBadge = document.getElementById("notificationBadge");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const newComplaintBtn = document.getElementById("newComplaintBtn");
+      const complaintModal = document.getElementById("complaintModal");
+      const modalClose = document.getElementById("modalClose");
+      const cancelComplaint = document.getElementById("cancelComplaint");
+      const submitComplaint = document.getElementById("submitComplaint");
+      const complaintForm = document.getElementById("complaintForm");
+      const fileUpload = document.getElementById("fileUpload");
+      const complaintImage = document.getElementById("complaintImage");
+      const imagePreview = document.getElementById("imagePreview");
+      const filterOptions = document.querySelectorAll(".filter-option");
+
+      // Current user data
+      let currentUser = null;
+      let userData = null;
+      let complaints = [];
+      let filteredComplaints = [];
+      let currentFilter = "all";
+
+      // Initialize the application
+      function initApp() {
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            currentUser = user;
+            loadUserData();
+            loadComplaints();
+            loadStats();
+            loadNotifications();
+          } else {
+            window.location.href = "login.html";
+          }
+        });
+      }
+
+      // Load user data from Firebase
+      function loadUserData() {
+        database
+          .ref("users/" + currentUser.uid)
+          .once("value")
+          .then((snapshot) => {
+            userData = snapshot.val();
+            renderUserProfile();
+          })
+          .catch((error) => {
+            console.error("Error loading user data:", error);
+          });
+      }
+
+      // Render user profile in sidebar
+      function renderUserProfile() {
+        if (!userData) return;
+
+        const initials = userData.fullName
+          .split(" ")
+          .map((name) => name[0])
+          .join("")
+          .toUpperCase();
+
+        userProfileSidebar.innerHTML = `
+          <div class="user-avatar">${initials}</div>
+          <div class="user-info">
+            <div class="user-name">${userData.fullName}</div>
+            <div class="user-lga">${userData.localGovernment}</div>
+          </div>
+        `;
+      }
+
+      // Load complaints from Firebase
+      function loadComplaints() {
+        database
+          .ref("complaints")
+          .orderByChild("timestamp")
+          .once("value")
+          .then((snapshot) => {
+            complaints = [];
+            snapshot.forEach((childSnapshot) => {
+              const complaint = childSnapshot.val();
+              complaint.id = childSnapshot.key;
+              complaints.unshift(complaint); // Newest first
+            });
+            filterComplaints(currentFilter);
+          })
+          .catch((error) => {
+            console.error("Error loading complaints:", error);
+          });
+      }
+
+      // Filter complaints based on selected filter
+      function filterComplaints(filter) {
+        currentFilter = filter;
+        filteredComplaints = complaints.filter((complaint) => {
+          if (filter === "all") return true;
+          if (filter === "mine") return complaint.userId === currentUser.uid;
+          if (filter === "pending") return complaint.status === "Pending";
+          if (filter === "resolved") return complaint.status === "Resolved";
+          return true;
+        });
+        renderComplaints();
+      }
+
+      // Render complaints to the DOM
+      function renderComplaints() {
+        if (filteredComplaints.length === 0) {
+          complaintsContainer.innerHTML = `
+            <div class="no-complaints" style="padding: 2rem; text-align: center; color: var(--gray-medium);">
+              <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+              <p>No complaints found</p>
+            </div>
+          `;
+          return;
+        }
+
+        complaintsContainer.innerHTML = filteredComplaints
+          .map((complaint) => renderComplaint(complaint))
+          .join("");
+
+        // Add event listeners to reply buttons
+        document.querySelectorAll(".reply-submit").forEach((button) => {
+          button.addEventListener("click", handleReplySubmit);
+        });
+
+        // Add event listeners to star ratings
+        document.querySelectorAll(".star").forEach((star) => {
+          star.addEventListener("click", handleStarClick);
+        });
+      }
+
+      // Render a single complaint
+      function renderComplaint(complaint) {
+        const userInitials = complaint.userName
+          .split(" ")
+          .map((name) => name[0])
+          .join("")
+          .toUpperCase();
+
+        const date = new Date(complaint.timestamp);
+        const formattedDate = date.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        const statusClass =
+          complaint.status === "Pending"
+            ? "status-pending"
+            : complaint.status === "Resolved"
+            ? "status-resolved"
+            : "status-new";
+
+        // Render replies if they exist
+        let repliesHTML = "";
+        if (complaint.replies) {
+          repliesHTML = Object.values(complaint.replies)
+            .sort((a, b) => b.timestamp - a.timestamp)
+            .map((reply) => renderReply(reply))
+            .join("");
+
+          repliesHTML += `
+            <div class="add-reply">
+              <textarea
+                class="reply-input"
+                placeholder="Add a reply..."
+                data-complaint-id="${complaint.id}"
+              ></textarea>
+              <button class="reply-submit" data-complaint-id="${complaint.id}">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          `;
+        } else {
+          repliesHTML = `
+            <div class="add-reply">
+              <textarea
+                class="reply-input"
+                placeholder="Add a reply..."
+                data-complaint-id="${complaint.id}"
+              ></textarea>
+              <button class="reply-submit" data-complaint-id="${complaint.id}">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="complaint-item" data-complaint-id="${complaint.id}">
+            <div class="complaint-header">
+              <div class="complaint-user">
+                <div class="complaint-avatar">${userInitials}</div>
+                <div class="complaint-user-info">
+                  <h4>${complaint.userName}</h4>
+                  <p>${complaint.userLGA}</p>
+                </div>
+              </div>
+              <div class="complaint-meta">
+                <span class="complaint-date">${formattedDate}</span>
+                <span class="complaint-status ${statusClass}">${
+          complaint.status
+        }</span>
+              </div>
+            </div>
+
+            <span class="complaint-category">${complaint.category}</span>
+            <h3 class="complaint-title">${complaint.title}</h3>
+            <p class="complaint-description">${complaint.description}</p>
+
+            ${
+              complaint.imageUrl
+                ? `
+              <img
+                src="${complaint.imageUrl}"
+                alt="${complaint.title}"
+                class="complaint-image"
+              />
+            `
+                : ""
+            }
+
+            <div class="complaint-actions">
+              <div class="action-buttons">
+                <button class="action-btn">
+                  <i class="fas fa-comment"></i>
+                  <span>${complaint.replyCount || 0} Comments</span>
+                </button>
+                <button class="action-btn">
+                  <i class="fas fa-share"></i>
+                  <span>Share</span>
+                </button>
+              </div>
+              <div class="complaint-rating" data-complaint-id="${complaint.id}">
+                ${[1, 2, 3, 4, 5]
+                  .map(
+                    (star) => `
+                  <i class="fas fa-star star ${
+                    complaint.rating && star <= complaint.rating ? "filled" : ""
+                  }" 
+                     data-rating="${star}"></i>
+                `
+                  )
+                  .join("")}
+              </div>
+            </div>
+
+            <div class="complaint-replies">
+              ${repliesHTML}
+            </div>
+          </div>
+        `;
+      }
+
+      // Render a single reply
+      function renderReply(reply) {
+        const userInitials = reply.userName
+          .split(" ")
+          .map((name) => name[0])
+          .join("")
+          .toUpperCase();
+
+        const date = new Date(reply.timestamp);
+        const formattedDate = date.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        return `
+          <div class="reply-item">
+            <div class="reply-header">
+              <div class="reply-user">
+                <div class="reply-avatar">${userInitials}</div>
+                <div class="reply-user-info">
+                  <h5>${reply.userName}</h5>
+                  <p>${reply.userRole || "Citizen"}</p>
+                </div>
+              </div>
+              <span class="reply-date">${formattedDate}</span>
+            </div>
+            <p class="reply-content">${reply.content}</p>
+            <div class="reply-actions">
+              <button class="reply-action-btn">
+                <i class="fas fa-thumbs-up"></i> Like
+              </button>
+              <button class="reply-action-btn">
+                <i class="fas fa-reply"></i> Reply
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // Load stats from Firebase
+      function loadStats() {
+        database
+          .ref("complaints")
+          .once("value")
+          .then((snapshot) => {
+            const allComplaints = [];
+            snapshot.forEach((childSnapshot) => {
+              allComplaints.push(childSnapshot.val());
+            });
+
+            const total = allComplaints.length;
+            const pending = allComplaints.filter(
+              (c) => c.status === "Pending"
+            ).length;
+            const resolved = allComplaints.filter(
+              (c) => c.status === "Resolved"
+            ).length;
+            const myComplaints = allComplaints.filter(
+              (c) => c.userId === currentUser.uid
+            ).length;
+
+            renderStats(total, pending, resolved, myComplaints);
+          })
+          .catch((error) => {
+            console.error("Error loading stats:", error);
+          });
+      }
+
+      // Render stats cards
+      function renderStats(total, pending, resolved, myComplaints) {
+        statsGrid.innerHTML = `
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-value">${total}</div>
+                <div class="stat-label">Total Complaints</div>
+              </div>
+              <div class="stat-icon total">
+                <i class="fas fa-list"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-value">${pending}</div>
+                <div class="stat-label">Pending</div>
+              </div>
+              <div class="stat-icon pending">
+                <i class="fas fa-clock"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-value">${resolved}</div>
+                <div class="stat-label">Resolved</div>
+              </div>
+              <div class="stat-icon resolved">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-value">${myComplaints}</div>
+                <div class="stat-label">My Complaints</div>
+              </div>
+              <div class="stat-icon new">
+                <i class="fas fa-exclamation-circle"></i>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Load notifications
+      function loadNotifications() {
+        database
+          .ref("notifications/" + currentUser.uid)
+          .orderByChild("read")
+          .equalTo(false)
+          .once("value")
+          .then((snapshot) => {
+            const count = snapshot.numChildren();
+            notificationBadge.textContent = count;
+          })
+          .catch((error) => {
+            console.error("Error loading notifications:", error);
+          });
+      }
+
+      // Handle new complaint submission
+      function handleNewComplaint() {
+        const category = document.getElementById("complaintCategory").value;
+        const title = document.getElementById("complaintTitle").value;
+        const description = document.getElementById(
+          "complaintDescription"
+        ).value;
+        const location = document.getElementById("complaintLocation").value;
+        const imageFile = complaintImage.files[0];
+
+        if (!category || !title || !description || !location) {
+          alert("Please fill in all required fields");
+          return;
+        }
+
+        submitComplaint.disabled = true;
+        submitComplaint.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+        // Create complaint object
+        const complaint = {
+          userId: currentUser.uid,
+          userName: userData.fullName,
+          userLGA: userData.localGovernment,
+          category,
+          title,
+          description,
+          location,
+          status: "Pending",
+          timestamp: Date.now(),
+          replyCount: 0,
+          rating: 0,
+        };
+
+        // If there's an image, upload it first
+        if (imageFile) {
+          const storageRef = firebase.storage().ref();
+          const fileRef = storageRef.child(
+            `complaints/${currentUser.uid}/${Date.now()}_${imageFile.name}`
+          );
+
+          fileRef
+            .put(imageFile)
+            .then((snapshot) => {
+              return snapshot.ref.getDownloadURL();
+            })
+            .then((downloadURL) => {
+              complaint.imageUrl = downloadURL;
+              saveComplaintToDatabase(complaint);
+            })
+            .catch((error) => {
+              console.error("Error uploading image:", error);
+              submitComplaint.disabled = false;
+              submitComplaint.textContent = "Submit Complaint";
+            });
+        } else {
+          saveComplaintToDatabase(complaint);
+        }
+      }
+
+      // Save complaint to Firebase database
+      function saveComplaintToDatabase(complaint) {
+        database
+          .ref("complaints")
+          .push(complaint)
+          .then(() => {
+            // Reset form and close modal
+            complaintForm.reset();
+            imagePreview.style.display = "none";
+            complaintModal.classList.remove("active");
+            submitComplaint.disabled = false;
+            submitComplaint.textContent = "Submit Complaint";
+
+            // Reload complaints
+            loadComplaints();
+            loadStats();
+          })
+          .catch((error) => {
+            console.error("Error saving complaint:", error);
+            submitComplaint.disabled = false;
+            submitComplaint.textContent = "Submit Complaint";
+          });
+      }
+
+      // Handle reply submission
+      function handleReplySubmit(e) {
+        const button = e.currentTarget;
+        const complaintId = button.getAttribute("data-complaint-id");
+        const replyInput = document.querySelector(
+          `.reply-input[data-complaint-id="${complaintId}"]`
+        );
+        const content = replyInput.value.trim();
+
+        if (!content) return;
+
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+        // Create reply object
+        const reply = {
+          userId: currentUser.uid,
+          userName: userData.fullName,
+          userRole: "Citizen",
+          content,
+          timestamp: Date.now(),
+        };
+
+        // Save reply to Firebase
+        database
+          .ref(`complaints/${complaintId}/replies`)
+          .push(reply)
+          .then(() => {
+            // Update reply count
+            return database
+              .ref(`complaints/${complaintId}/replyCount`)
+              .transaction((count) => {
+                return (count || 0) + 1;
+              });
+          })
+          .then(() => {
+            // Clear input and enable button
+            replyInput.value = "";
+            button.disabled = false;
+            button.innerHTML = '<i class="fas fa-paper-plane"></i>';
+
+            // Reload complaints to show new reply
+            loadComplaints();
+          })
+          .catch((error) => {
+            console.error("Error saving reply:", error);
+            button.disabled = false;
+            button.innerHTML = '<i class="fas fa-paper-plane"></i>';
+          });
+      }
+
+      // Handle star rating
+      function handleStarClick(e) {
+        const star = e.currentTarget;
+        const rating = parseInt(star.getAttribute("data-rating"));
+        const complaintId = star
+          .closest(".complaint-rating")
+          .getAttribute("data-complaint-id");
+
+        // Update rating in Firebase
+        database
+          .ref(`complaints/${complaintId}/rating`)
+          .set(rating)
+          .then(() => {
+            // Update UI
+            const stars = star.parentElement.querySelectorAll(".star");
+            stars.forEach((s, index) => {
+              if (index < rating) {
+                s.classList.add("filled");
+              } else {
+                s.classList.remove("filled");
+              }
+            });
+          })
+          .catch((error) => {
+            console.error("Error updating rating:", error);
+          });
+      }
+
+      // Event Listeners
+      logoutBtn.addEventListener("click", () => {
+        auth.signOut().then(() => {
+          window.location.href = "login.html";
+        });
+      });
+
+      newComplaintBtn.addEventListener("click", () => {
+        complaintModal.classList.add("active");
+      });
+
+      modalClose.addEventListener("click", () => {
+        complaintModal.classList.remove("active");
+      });
+
+      cancelComplaint.addEventListener("click", () => {
+        complaintModal.classList.remove("active");
+      });
+
+      submitComplaint.addEventListener("click", handleNewComplaint);
+
+      fileUpload.addEventListener("click", () => {
+        complaintImage.click();
+      });
+
+      complaintImage.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            imagePreview.src = event.target.result;
+            imagePreview.style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      filterOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          filterComplaints(e.currentTarget.getAttribute("data-filter"));
+        });
+      });
+
+      // Initialize the app
+      initApp();
+    </script>
+  </body>
+</html>

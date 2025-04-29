@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMO State - Citizen Feedback System</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #0056b3;
+        --primary-light: #e6f0ff;
+        --secondary-color: #003366;
+        --accent-color: #ffcc00;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        --success-color: #28a745;
+        --warning-color: #ffc107;
+        --error-color: #dc3545;
+        --gray-light: #e9ecef;
+        --gray-medium: #adb5bd;
+        --gray-dark: #495057;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--dark-color);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Header Styles */
+      .header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .logo-img {
+        width: 40px;
+        height: auto;
+      }
+
+      .logo-text {
+        font-weight: 600;
+        font-size: 1.2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-link {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+        position: relative;
+      }
+
+      .nav-link:hover {
+        color: var(--accent-color);
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color);
+        transition: var(--transition);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.6rem 1.2rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+      }
+
+      .btn-outline:hover {
+        background: white;
+        color: var(--primary-color);
+      }
+
+      .btn-primary {
+        background-color: var(--accent-color);
+        color: var(--secondary-color);
+        border: 2px solid var(--accent-color);
+        font-weight: 600;
+      }
+
+      .btn-primary:hover {
+        background-color: transparent;
+        color: var(--accent-color);
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(
+            rgba(0, 86, 179, 0.9),
+            rgba(0, 51, 102, 0.9)
+          ),
+          url("https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")
+            no-repeat center center;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 6rem 2rem 2rem;
+        color: white;
+      }
+
+      .hero-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .hero-content {
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .hero-image {
+        position: relative;
+        animation: fadeIn 1s ease-out;
+      }
+
+      .hero-image img {
+        width: 100%;
+        border-radius: var(--border-radius);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .stats-card {
+        position: absolute;
+        bottom: -30px;
+        left: -30px;
+        background: white;
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        color: var(--dark-color);
+        width: 250px;
+      }
+
+      .stats-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .stats-label {
+        font-size: 0.9rem;
+        color: var(--gray-dark);
+      }
+
+      /* Features Section */
+      .section {
+        padding: 5rem 2rem;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        color: var(--secondary-color);
+      }
+
+      .section-subtitle {
+        text-align: center;
+        color: var(--gray-dark);
+        max-width: 700px;
+        margin: 0 auto 3rem;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .feature-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .feature-icon {
+        width: 70px;
+        height: 70px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+      }
+
+      .feature-title {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: var(--secondary-color);
+      }
+
+      .feature-description {
+        color: var(--gray-dark);
+      }
+
+      /* How It Works Section */
+      .steps-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .steps-line {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100%;
+        width: 4px;
+        background-color: var(--primary-light);
+        z-index: 1;
+      }
+
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .step {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .step:nth-child(even) {
+        flex-direction: row-reverse;
+        text-align: right;
+      }
+
+      .step-number {
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+
+      .step-content {
+        flex: 1;
+      }
+
+      .step-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        color: var(--secondary-color);
+      }
+
+      .step-description {
+        color: var(--gray-dark);
+      }
+
+      /* Testimonials Section */
+      .testimonials {
+        background-color: var(--light-color);
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .testimonial-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--box-shadow);
+        position: relative;
+      }
+
+      .testimonial-quote {
+        color: var(--gray-dark);
+        font-style: italic;
+        margin-bottom: 1.5rem;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-weight: 600;
+      }
+
+      .author-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .author-info p {
+        font-size: 0.8rem;
+        color: var(--gray-medium);
+      }
+
+      .quote-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: var(--primary-light);
+        font-size: 3rem;
+        opacity: 0.5;
+      }
+
+      /* CTA Section */
+      .cta {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        text-align: center;
+        padding: 4rem 2rem;
+      }
+
+      .cta-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0.9;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      /* Footer */
+      .footer {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 4rem 2rem 2rem;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 3rem;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-logo-img {
+        width: 40px;
+        height: auto;
+      }
+
+      .footer-logo-text {
+        font-weight: 600;
+        font-size: 1.2rem;
+      }
+
+      .footer-about {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+      }
+
+      .social-icon:hover {
+        background-color: var(--accent-color);
+        color: var(--secondary-color);
+      }
+
+      .footer-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+
+      .footer-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-link {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-link a {
+        color: white;
+        text-decoration: none;
+        opacity: 0.8;
+        transition: var(--transition);
+      }
+
+      .footer-link a:hover {
+        opacity: 1;
+        color: var(--accent-color);
+        padding-left: 5px;
+      }
+
+      .footer-contact-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        align-items: flex-start;
+      }
+
+      .contact-icon {
+        color: var(--accent-color);
+        margin-top: 3px;
+      }
+
+      .contact-text {
+        opacity: 0.8;
+        font-size: 0.9rem;
+      }
+
+      .footer-bottom {
+        max-width: 1200px;
+        margin: 3rem auto 0;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .copyright {
+        opacity: 0.7;
+        font-size: 0.9rem;
+      }
+
+      .footer-legal {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-legal a {
+        color: white;
+        text-decoration: none;
+        opacity: 0.7;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .footer-legal a:hover {
+        opacity: 1;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .hero-container {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .hero-actions {
+          justify-content: center;
+        }
+
+        .hero-image {
+          margin-top: 3rem;
+        }
+
+        .stats-card {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .step {
+          flex-direction: column;
+          text-align: center !important;
+        }
+
+        .step:nth-child(even) {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .cta-title {
+          font-size: 1.8rem;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .header-container {
+          padding: 0 1rem;
+        }
+
+        .hero {
+          padding: 5rem 1rem 1rem;
+        }
+
+        .hero-title {
+          font-size: 2rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1rem;
+        }
+
+        .section {
+          padding: 3rem 1rem;
+        }
+
+        .stats-card {
+          width: 200px;
+          padding: 1rem;
+        }
+
+        .stats-value {
+          font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-legal {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <img
+            src="https://axxpoint.imostate.gov.ng/images/imo-state-logo.png"
+            alt="IMO State Logo"
+            class="logo-img"
+          />
+          <span class="logo-text">IMO Feedback</span>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#testimonials" class="nav-link">Testimonials</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-outline">Login</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-container">
+        <div class="hero-content">
+          <h1 class="hero-title">Your Voice Matters in IMO State</h1>
+          <p class="hero-subtitle">
+            Report issues, track resolutions, and help improve public services
+            in your community through our citizen feedback platform.
+          </p>
+          <div class="hero-actions">
+            <a href="signup.html" class="btn btn-primary">Get Started</a>
+            <a href="#how-it-works" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            alt="Happy citizens"
+          />
+          <div class="stats-card">
+            <div class="stats-value">5,000+</div>
+            <div class="stats-label">Issues resolved through our platform</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+      <h2 class="section-title">Why Use Our Platform</h2>
+      <p class="section-subtitle">
+        Join thousands of citizens making Imo State better by reporting issues
+        and providing feedback on public services
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bullhorn"></i>
+          </div>
+          <h3 class="feature-title">Report Issues</h3>
+          <p class="feature-description">
+            Easily report community issues like road problems, waste management,
+            and public health concerns directly to the government.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="feature-title">Track Progress</h3>
+          <p class="feature-description">
+            Monitor the status of your complaints in real-time and receive
+            notifications when they're resolved.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="feature-title">Community Impact</h3>
+          <p class="feature-description">
+            See how your feedback contributes to improving public services for
+            everyone in Imo State.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section
+      class="section"
+      id="how-it-works"
+      style="background-color: var(--light-color)"
+    >
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">
+        Getting started with the IMO State Citizen Feedback System is simple and
+        straightforward
+      </p>
+
+      <div class="steps-container">
+        <div class="steps-line"></div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3 class="step-title">Create Your Account</h3>
+              <p class="step-description">
+                Sign up with your basic information to become a verified citizen
+                of Imo State.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3 class="step-title">Submit a Complaint</h3>
+              <p class="step-description">
+                Report an issue by providing details, location, and optional
+                photos of the problem.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3 class="step-title">Track Resolution</h3>
+              <p class="step-description">
+                Monitor the status of your complaint and receive updates on the
+                resolution progress.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3 class="step-title">Provide Feedback</h3>
+              <p class="step-description">
+                Rate the resolution and provide additional feedback to help
+                improve services.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+      <h2 class="section-title">What Citizens Say</h2>
+      <p class="section-subtitle">
+        Hear from citizens who have used our platform to make a difference in
+        their communities
+      </p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <i class="fas fa-quote-right quote-icon"></i>
+          <p class="testimonial-quote">
+            "I reported a pothole on my street, and within two weeks it was
+            fixed! The platform made it so easy to track the progress."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">CN</div>
+            <div class="author-info">
+              <h4>Chika Nwosu</h4>
+              <p>Owerri Municipal</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <i class="fas fa-quote-right quote-icon"></i>
+          <p class="testimonial-quote">
+            "The waste management issue in our area was resolved quickly after I
+            submitted a complaint. I'm impressed with the responsiveness."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AE</div>
+            <div class="author-info">
+              <h4>Adebayo Eze</h4>
+              <p>Orlu</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <i class="fas fa-quote-right quote-icon"></i>
+          <p class="testimonial-quote">
+            "As a senior citizen, I appreciate how user-friendly this platform
+            is. It's empowering to have my voice heard by the government."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MO</div>
+            <div class="author-info">
+              <h4>Marian Okoro</h4>
+              <p>Okigwe</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <h2 class="cta-title">Ready to Make a Difference?</h2>
+      <p class="cta-subtitle">
+        Join thousands of citizens helping to improve public services in Imo
+        State. Your feedback matters!
+      </p>
+      <div class="cta-buttons">
+        <a href="signup.html" class="btn btn-primary">Sign Up Now</a>
+        <a href="login.html" class="btn btn-outline">Login</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+      <div class="footer-container">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <img
+              src="https://axxpoint.imostate.gov.ng/images/imo-state-logo.png"
+              alt="IMO State Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">IMO Feedback</span>
+          </div>
+          <p class="footer-about">
+            The IMO State Citizen Feedback System empowers citizens to report
+            issues and provide feedback on public services, helping to build a
+            better Imo State for everyone.
+          </p>
+          <div class="footer-social">
+            <a href="#" class="social-icon"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-title">Quick Links</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#features">Features</a></li>
+            <li class="footer-link">
+              <a href="#how-it-works">How It Works</a>
+            </li>
+            <li class="footer-link">
+              <a href="#testimonials">Testimonials</a>
+            </li>
+            <li class="footer-link"><a href="login.html">Login</a></li>
+            <li class="footer-link"><a href="signup.html">Sign Up</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-title">Categories</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#">Roads & Transportation</a></li>
+            <li class="footer-link"><a href="#">Public Health</a></li>
+            <li class="footer-link"><a href="#">Education</a></li>
+            <li class="footer-link"><a href="#">Security</a></li>
+            <li class="footer-link"><a href="#">Water Supply</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-title">Contact Us</h3>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt contact-icon"></i>
+            <p class="contact-text">
+              Government House, Owerri, Imo State, Nigeria
+            </p>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone-alt contact-icon"></i>
+            <p class="contact-text">+234 803 123 4567</p>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope contact-icon"></i>
+            <p class="contact-text">feedback@imostate.gov.ng</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">
+          © 2025 IMO State Citizen Feedback System. All rights reserved.
+        </p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const navLinks = document.querySelector(".nav-links");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        navLinks.style.display =
+          navLinks.style.display === "flex" ? "none" : "flex";
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= 768) {
+            navLinks.style.display = "none";
+          }
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Add shadow to header on scroll
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector(".header");
+        if (window.scrollY > 10) {
+          header.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)";
+        } else {
+          header.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.1)";
+        }
+      });
+    </script>
+  </body>
+</html>

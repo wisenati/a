@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMO State - Citizen Login</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth-compat.js"></script>
+    <style>
+      :root {
+        --primary-color: #0056b3;
+        --secondary-color: #003366;
+        --accent-color: #ffcc00;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        --success-color: #28a745;
+        --error-color: #dc3545;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      .left-panel {
+        flex: 1;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .left-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("https://upload.wikimedia.org/wikipedia/commons/7/7e/Imo_State_Seal.png")
+          no-repeat center center;
+        background-size: contain;
+        opacity: 0.1;
+        z-index: 0;
+      }
+
+      .left-content {
+        position: relative;
+        z-index: 1;
+        max-width: 500px;
+      }
+
+      .logo {
+        width: 100px;
+        height: auto;
+        margin-bottom: 1.5rem;
+      }
+
+      .left-panel h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .left-panel p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .features {
+        text-align: left;
+        margin-top: 2rem;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .feature-icon {
+        margin-right: 1rem;
+        color: var(--accent-color);
+      }
+
+      .right-panel {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+
+      .form-container {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 500px;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .form-header h2 {
+        color: var(--secondary-color);
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-header p {
+        color: #666;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: all 0.3s;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        outline: none;
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+      }
+
+      .btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background: rgba(0, 86, 179, 0.1);
+      }
+
+      .form-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #666;
+      }
+
+      .form-footer a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .form-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .error-message {
+        color: var(--error-color);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        display: none;
+      }
+
+      .success-message {
+        color: var(--success-color);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        display: none;
+      }
+
+      .password-toggle {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #777;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        color: #999;
+        font-size: 0.9rem;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .divider::before {
+        margin-right: 1rem;
+      }
+
+      .divider::after {
+        margin-left: 1rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .left-panel {
+          padding: 2rem 1rem;
+        }
+
+        .right-panel {
+          padding: 2rem 1rem;
+        }
+
+        .form-container {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .form-container {
+          padding: 1.5rem;
+        }
+
+        .left-panel h1 {
+          font-size: 2rem;
+        }
+
+        .form-header h2 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-panel">
+        <div class="left-content">
+          <img
+            src="https://axxpoint.imostate.gov.ng/images/imo-state-logo.png"
+            alt="IMO State Logo"
+            class="logo"
+          />
+          <h1>IMO Feedback</h1>
+          <p>
+            Welcome back! Log in to access your dashboard and track your
+            submitted feedback and complaints.
+          </p>
+
+          <div class="features">
+            <div class="feature-item">
+              <i class="fas fa-chart-line feature-icon"></i>
+              <span>Track the status of your complaints in real-time</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-bell feature-icon"></i>
+              <span>Get notifications when your issues are resolved</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-history feature-icon"></i>
+              <span>View your submission history and past feedback</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="form-container">
+          <div class="form-header">
+            <h2>Welcome Back</h2>
+            <p>Log in to your citizen account</p>
+          </div>
+
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number</label>
+              <input
+                type="tel"
+                id="phoneNumber"
+                class="form-control"
+                placeholder="Enter your registered phone number"
+                required
+              />
+              <div class="error-message" id="phoneError">
+                Please enter a valid phone number
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div style="position: relative">
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  placeholder="Enter your password"
+                  required
+                />
+                <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+              </div>
+              <div class="error-message" id="passwordError">
+                Please enter your password
+              </div>
+            </div>
+
+            <div class="form-group" style="text-align: right">
+              <a href="forgot-password.html" style="font-size: 0.9rem"
+                >Forgot password?</a
+              >
+            </div>
+
+            <button type="submit" class="btn" id="loginBtn">
+              <span id="btnText">Log In</span>
+              <span id="btnSpinner" style="display: none">
+                <i class="fas fa-spinner fa-spin"></i> Logging in...
+              </span>
+            </button>
+
+            <div
+              class="error-message"
+              id="loginError"
+              style="text-align: center; margin-top: 1rem"
+            ></div>
+
+            <div class="divider">OR</div>
+
+            <button
+              type="button"
+              class="btn btn-outline"
+              onclick="window.location.href='signup.html'"
+            >
+              Create New Account
+            </button>
+          </form>
+
+          <div class="form-footer">
+            <p>
+              By logging in, you agree to our
+              <a href="#">Terms of Service</a> and
+              <a href="#">Privacy Policy</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Firebase configuration (should match your signup page)
+      const firebaseConfig = {
+        apiKey: "AIzaSyCgOvIkDCcS3DFrt5f6Y7pYmjCoHIfDF9U",
+        authDomain: "moniebase-b4b4d.firebaseapp.com",
+        projectId: "moniebase-b4b4d",
+        storageBucket: "moniebase-b4b4d.appspot.com",
+        messagingSenderId: "1009678808253",
+        appId: "1:1009678808253:android:ff94e94c52bad2db7973d4",
+        databaseURL: "https://moniebase-b4b4d-default-rtdb.firebaseio.com/",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+
+      // DOM Elements
+      const loginForm = document.getElementById("loginForm");
+      const togglePassword = document.getElementById("togglePassword");
+      const passwordInput = document.getElementById("password");
+      const loginBtn = document.getElementById("loginBtn");
+      const btnText = document.getElementById("btnText");
+      const btnSpinner = document.getElementById("btnSpinner");
+      const loginError = document.getElementById("loginError");
+
+      // Toggle password visibility
+      togglePassword.addEventListener("click", function () {
+        const type =
+          passwordInput.getAttribute("type") === "password"
+            ? "text"
+            : "password";
+        passwordInput.setAttribute("type", type);
+        this.classList.toggle("fa-eye-slash");
+      });
+
+      // Form validation
+      function validateForm() {
+        let isValid = true;
+
+        // Reset error messages
+        document
+          .querySelectorAll(".error-message")
+          .forEach((el) => (el.style.display = "none"));
+        loginError.style.display = "none";
+
+        // Validate Phone Number
+        const phoneNumber = document.getElementById("phoneNumber").value.trim();
+        const phoneRegex = /^[0-9]{11}$/;
+        if (!phoneRegex.test(phoneNumber)) {
+          document.getElementById("phoneError").style.display = "block";
+          isValid = false;
+        }
+
+        // Validate Password
+        const password = passwordInput.value;
+        if (!password) {
+          document.getElementById("passwordError").style.display = "block";
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      // Handle form submission
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (!validateForm()) return;
+
+        // Show loading state
+        btnText.style.display = "none";
+        btnSpinner.style.display = "inline";
+        loginBtn.disabled = true;
+
+        // Get form values
+        const phoneNumber = document.getElementById("phoneNumber").value.trim();
+        const password = passwordInput.value;
+
+        // Convert phone number to email format (matches signup approach)
+        const email = phoneNumber + "@imostate.com";
+
+        // Sign in user
+        auth
+          .signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // User logged in successfully
+            window.location.href = "dashboard.html";
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error("Login error:", error);
+
+            // Show error message
+            loginError.textContent = getErrorMessage(error.code);
+            loginError.style.display = "block";
+
+            // Reset button state
+            btnText.style.display = "inline";
+            btnSpinner.style.display = "none";
+            loginBtn.disabled = false;
+          });
+      });
+
+      // Convert Firebase error codes to user-friendly messages
+      function getErrorMessage(errorCode) {
+        switch (errorCode) {
+          case "auth/invalid-email":
+          case "auth/user-not-found":
+            return "No account found with this phone number";
+          case "auth/wrong-password":
+            return "Incorrect password. Please try again";
+          case "auth/too-many-requests":
+            return "Too many attempts. Account temporarily locked";
+          default:
+            return "Login failed. Please try again later";
+        }
+      }
+    </script>
+  </body>
+</html>
