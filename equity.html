@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Affiliate Equity - Earn money by promoting our platform. Get paid for your referrals and activities."
+      content="Affiliate Equity - A premium referral program offering lucrative earning opportunities through our trusted platform."
     />
     <meta
       name="keywords"
-      content="affiliate, equity, earn money, referral program, passive income"
+      content="affiliate program, referral marketing, passive income, side hustle, digital marketing"
     />
     <meta name="author" content="Affiliate Equity" />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Affiliate Equity - Earn Money Online" />
+    <meta
+      property="og:title"
+      content="Affiliate Equity - Premium Referral Program"
+    />
     <meta
       property="og:description"
-      content="Join Affiliate Equity and start earning money through our referral program."
+      content="Join our exclusive affiliate program and earn through our transparent, high-paying referral system."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://affiliateequity.com" />
@@ -25,46 +28,93 @@
       content="https://affiliateequity.com/images/og-image.jpg"
     />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <title>Affiliate Equity - Earn Money Online</title>
+    <title>Affiliate Equity - Premium Referral Program</title>
     <style>
       :root {
-        --primary-color: #4a6bff;
-        --secondary-color: #ff6b6b;
-        --dark-color: #2c3e50;
+        --primary-color: #4361ee;
+        --primary-light: #e0e7ff;
+        --secondary-color: #3a0ca3;
+        --accent-color: #f72585;
+        --dark-color: #1a1a2e;
         --light-color: #f8f9fa;
-        --success-color: #28a745;
-        --warning-color: #ffc107;
-        --danger-color: #dc3545;
-        --transition: all 0.3s ease;
+        --success-color: #4cc9f0;
+        --warning-color: #f8961e;
+        --danger-color: #ef233c;
+        --text-color: #2b2d42;
+        --text-light: #8d99ae;
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12),
+          0 1px 2px rgba(0, 0, 0, 0.24);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1),
+          0 6px 6px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 15px 25px rgba(0, 0, 0, 0.15),
+          0 5px 10px rgba(0, 0, 0, 0.05);
+        --border-radius: 12px;
+        --border-radius-sm: 6px;
       }
 
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       }
 
       body {
-        background-color: #f5f7ff;
-        color: var(--dark-color);
+        background-color: #f9fafc;
+        color: var(--text-color);
         line-height: 1.6;
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
       }
 
       .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 24px;
       }
 
+      /* Typography */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      h3 {
+        font-size: 1.75rem;
+      }
+
+      p {
+        margin-bottom: 1rem;
+        color: var(--text-color);
+      }
+
+      /* Header */
       header {
-        background: linear-gradient(135deg, var(--primary-color), #6c5ce7);
-        color: white;
+        background: white;
+        color: var(--dark-color);
         padding: 20px 0;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        position: relative;
-        z-index: 100;
+        box-shadow: var(--shadow-sm);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
       }
 
       .header-content {
@@ -74,79 +124,130 @@
       }
 
       .logo {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 700;
         display: flex;
         align-items: center;
+        color: var(--primary-color);
       }
 
       .logo i {
         margin-right: 10px;
-        font-size: 32px;
+        font-size: 28px;
       }
 
+      /* Main Content */
       .main-content {
-        min-height: calc(100vh - 180px);
+        min-height: 100vh;
+        padding: 120px 0 80px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 40px 0;
       }
 
-      .intro-section {
+      /* Hero Section */
+      .hero-section {
         text-align: center;
-        margin-bottom: 50px;
+        margin-bottom: 60px;
         animation: fadeIn 1s ease;
       }
 
-      .intro-section h1 {
+      .hero-content {
+        background: white;
+        padding: 40px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .hero-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          var(--primary-color),
+          var(--accent-color)
+        );
+      }
+
+      .hero-title {
         font-size: 2.5rem;
         margin-bottom: 20px;
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        margin-bottom: 30px;
+        font-weight: 400;
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+        margin: 40px 0;
+      }
+
+      .benefit-card {
+        background: white;
+        padding: 24px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-sm);
+        text-align: center;
+        transition: var(--transition);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .benefit-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .benefit-icon {
+        font-size: 2.5rem;
         color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+
+      .benefit-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: var(--dark-color);
+      }
+
+      .benefit-description {
+        color: var(--text-light);
+        font-size: 0.95rem;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 32px;
         background: linear-gradient(
           to right,
           var(--primary-color),
           var(--secondary-color)
         );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .intro-content {
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        max-width: 800px;
-        margin: 0 auto;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .intro-content::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 5px;
-        height: 100%;
-        background: linear-gradient(
-          to bottom,
-          var(--primary-color),
-          var(--secondary-color)
-        );
-      }
-
-      .intro-content p {
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-        line-height: 1.8;
-      }
-
-      .btn {
-        display: inline-block;
-        padding: 12px 30px;
-        background: linear-gradient(to right, var(--primary-color), #6c5ce7);
         color: white;
         border: none;
         border-radius: 50px;
@@ -155,35 +256,72 @@
         font-weight: 600;
         text-decoration: none;
         transition: var(--transition);
-        box-shadow: 0 4px 15px rgba(74, 107, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          var(--secondary-color),
+          var(--primary-color)
+        );
+        opacity: 0;
+        transition: var(--transition);
       }
 
       .btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(74, 107, 255, 0.4);
+        box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
       }
 
-      .btn:active {
-        transform: translateY(1px);
+      .btn:hover::after {
+        opacity: 1;
+      }
+
+      .btn span {
+        position: relative;
+        z-index: 1;
       }
 
       .btn-secondary {
-        background: linear-gradient(to right, var(--secondary-color), #ff8e8e);
+        background: linear-gradient(to right, var(--accent-color), #f72585cc);
       }
 
       .btn-secondary:hover {
-        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        box-shadow: 0 8px 25px rgba(248, 37, 133, 0.4);
       }
 
+      .btn-outline {
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        box-shadow: none;
+      }
+
+      .btn-outline:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      /* Form Styles */
       .form-container {
         display: none;
         background: white;
         padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
         max-width: 500px;
         margin: 0 auto;
         animation: slideUp 0.5s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05);
       }
 
       .form-container.active {
@@ -206,23 +344,34 @@
         margin-bottom: 8px;
         font-weight: 600;
         color: var(--dark-color);
+        font-size: 0.95rem;
       }
 
       .form-control {
         width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+        padding: 14px 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--border-radius-sm);
         font-size: 16px;
         transition: var(--transition);
+        background-color: #f8fafc;
       }
 
       .form-control:focus {
         border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        box-shadow: 0 0 0 3px var(--primary-light);
         outline: none;
+        background-color: white;
       }
 
+      .form-note {
+        font-size: 0.85rem;
+        color: var(--text-light);
+        margin-top: 8px;
+        display: block;
+      }
+
+      /* Modal Styles */
       .modal {
         display: none;
         position: fixed;
@@ -231,7 +380,7 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.7);
-        z-index: 1000;
+        z-index: 2000;
         justify-content: center;
         align-items: center;
         animation: fadeIn 0.3s ease;
@@ -243,52 +392,144 @@
 
       .modal-content {
         background: white;
-        border-radius: 10px;
+        border-radius: var(--border-radius);
         width: 90%;
         max-width: 500px;
-        padding: 30px;
+        max-height: 90vh; /* Limits height to 90% of viewport height */
+        padding: 32px;
         position: relative;
         animation: slideUp 0.4s ease;
+        box-shadow: var(--shadow-xl);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        overflow-y: auto; /* Enables vertical scrolling when needed */
       }
 
       .close-modal {
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 16px;
+        right: 16px;
         font-size: 24px;
         cursor: pointer;
-        color: #999;
+        color: var(--text-light);
         transition: var(--transition);
+        background: none;
+        border: none;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
       }
 
       .close-modal:hover {
         color: var(--danger-color);
+        background-color: #f8f9fa;
       }
 
       .modal-title {
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         color: var(--primary-color);
         font-size: 1.5rem;
+        text-align: center;
       }
 
       .payment-details {
         background: #f8f9fa;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: var(--border-radius-sm);
+        margin-bottom: 24px;
+        border: 1px solid #e2e8f0;
       }
 
       .payment-details p {
-        margin-bottom: 10px;
-        font-size: 15px;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+        line-height: 1.6;
       }
 
       .payment-details strong {
         color: var(--primary-color);
       }
 
+      .payment-steps {
+        margin-bottom: 24px;
+      }
+
+      .payment-step {
+        display: flex;
+        margin-bottom: 16px;
+        align-items: flex-start;
+      }
+
+      .payment-step-number {
+        background-color: var(--primary-color);
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      .payment-step-content {
+        flex: 1;
+      }
+
+      .payment-step-title {
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: var(--dark-color);
+      }
+
+      .payment-step-description {
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+
+      .payment-methods {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .payment-method {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--border-radius-sm);
+        text-align: center;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .payment-method:hover {
+        border-color: var(--primary-color);
+      }
+
+      .payment-method.active {
+        border-color: var(--primary-color);
+        background-color: var(--primary-light);
+      }
+
+      .payment-method-icon {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+        color: var(--primary-color);
+      }
+
+      .payment-method-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
       .countdown {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         text-align: center;
         margin: 20px 0;
         color: var(--primary-color);
@@ -297,133 +538,215 @@
 
       .success-message {
         text-align: center;
-        padding: 20px;
-        background-color: rgba(40, 167, 69, 0.1);
-        border-radius: 5px;
-        margin-top: 20px;
-        display: none;
+        padding: 24px;
+        background-color: rgba(76, 201, 240, 0.1);
+        border-radius: var(--border-radius-sm);
+        margin-top: 24px;
+        border: 1px solid rgba(76, 201, 240, 0.3);
       }
 
       .success-message i {
-        font-size: 50px;
+        font-size: 3rem;
         color: var(--success-color);
-        margin-bottom: 15px;
+        margin-bottom: 16px;
       }
 
       .success-message p {
-        font-size: 18px;
+        font-size: 1rem;
         color: var(--dark-color);
       }
 
-      footer {
-        background-color: var(--dark-color);
+      .success-message .coupon-code {
+        display: inline-block;
+        background: var(--dark-color);
         color: white;
-        padding: 30px 0;
-        text-align: center;
+        padding: 8px 16px;
+        border-radius: var(--border-radius-sm);
+        font-family: monospace;
+        margin: 10px 0;
+        font-size: 1.1rem;
       }
 
-      .footer-content {
+      /* Testimonials */
+      .testimonials-section {
+        margin: 60px 0;
+      }
+
+      .testimonials-title {
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--primary-color);
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+      }
+
+      .testimonial-card {
+        background: white;
+        padding: 24px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .testimonial-content {
+        font-style: italic;
+        margin-bottom: 16px;
+        color: var(--text-color);
+      }
+
+      .testimonial-author {
         display: flex;
-        flex-direction: column;
         align-items: center;
       }
 
+      .testimonial-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        color: var(--primary-color);
+        font-weight: bold;
+      }
+
+      .testimonial-name {
+        font-weight: 600;
+      }
+
+      .testimonial-role {
+        font-size: 0.85rem;
+        color: var(--text-light);
+      }
+
+      /* FAQ Section */
+      .faq-section {
+        margin: 60px 0;
+      }
+
+      .faq-title {
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--primary-color);
+      }
+
+      .faq-item {
+        margin-bottom: 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--border-radius-sm);
+        overflow: hidden;
+      }
+
+      .faq-question {
+        padding: 16px;
+        background: #f8f9fa;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .faq-question:hover {
+        background: #f1f3f5;
+      }
+
+      .faq-answer {
+        padding: 16px;
+        background: white;
+        display: none;
+      }
+
+      .faq-item.active .faq-answer {
+        display: block;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: white;
+        padding: 60px 0 30px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-logo {
+        font-size: 24px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .footer-logo i {
+        margin-right: 10px;
+      }
+
+      .footer-description {
+        color: #adb5bd;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+      }
+
+      .footer-heading {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: white;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 12px;
+      }
+
+      .footer-links a {
+        color: #adb5bd;
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.9rem;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
       .social-links {
-        margin: 20px 0;
+        display: flex;
+        gap: 16px;
+        margin-top: 20px;
       }
 
       .social-links a {
         color: white;
-        margin: 0 10px;
-        font-size: 20px;
+        font-size: 1.2rem;
         transition: var(--transition);
       }
 
       .social-links a:hover {
-        color: var(--secondary-color);
+        color: var(--accent-color);
       }
 
       .copyright {
-        font-size: 14px;
-        opacity: 0.8;
-      }
-
-      /* Tour Guide Elements */
-      .tour-highlight {
-        position: relative;
-      }
-
-      .tour-tooltip {
-        position: absolute;
-        background-color: white;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        z-index: 1001;
-        max-width: 300px;
-        display: none;
-        animation: fadeIn 0.3s ease;
-      }
-
-      .tour-tooltip::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 0;
-        border: 10px solid transparent;
-      }
-
-      .tour-tooltip.top::after {
-        bottom: -20px;
-        left: 20px;
-        border-top-color: white;
-      }
-
-      .tour-tooltip.right::after {
-        left: -20px;
-        top: 20px;
-        border-right-color: white;
-      }
-
-      .tour-tooltip.bottom::after {
-        top: -20px;
-        left: 20px;
-        border-bottom-color: white;
-      }
-
-      .tour-tooltip.left::after {
-        right: -20px;
-        top: 20px;
-        border-left-color: white;
-      }
-
-      .tour-tooltip h3 {
-        margin-bottom: 10px;
-        color: var(--primary-color);
-      }
-
-      .tour-tooltip p {
-        margin-bottom: 15px;
-        font-size: 14px;
-      }
-
-      .tour-tooltip .tour-nav {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .tour-tooltip .tour-nav button {
-        padding: 5px 15px;
-        border: none;
-        background-color: var(--primary-color);
-        color: white;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 14px;
-      }
-
-      .tour-tooltip .tour-nav button.skip {
-        background-color: #999;
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #adb5bd;
+        font-size: 0.85rem;
       }
 
       /* Animations */
@@ -461,26 +784,30 @@
 
       /* Responsive Styles */
       @media (max-width: 768px) {
-        .intro-section h1 {
+        .hero-title {
           font-size: 2rem;
         }
 
-        .intro-content,
+        .hero-subtitle {
+          font-size: 1.1rem;
+        }
+
+        .hero-content,
         .form-container {
-          padding: 20px;
+          padding: 30px;
         }
 
         .btn {
-          padding: 10px 20px;
+          padding: 12px 24px;
         }
       }
 
       @media (max-width: 480px) {
         .logo {
-          font-size: 22px;
+          font-size: 20px;
         }
 
-        .intro-section h1 {
+        .hero-title {
           font-size: 1.8rem;
         }
 
@@ -489,13 +816,21 @@
         }
 
         .modal-content {
-          padding: 20px;
+          padding: 24px;
+        }
+
+        .main-content {
+          padding: 100px 0 60px;
         }
       }
     </style>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
     />
   </head>
   <body>
@@ -509,59 +844,209 @@
     </header>
 
     <main class="main-content">
-      <section class="intro-section">
+      <section class="hero-section">
         <div class="container">
-          <div class="intro-content">
-            <h1>Welcome to Affiliate Equity</h1>
-            <p>
-              Affiliate Equity is a revolutionary platform that pays you for
-              promoting our services and bringing new users to our ecosystem.
+          <div class="hero-content">
+            <h1 class="hero-title">Join Our Exclusive Affiliate Program</h1>
+            <p class="hero-subtitle">
+              Earn generous commissions by referring others to our premium
+              platform. Start building your passive income stream today.
             </p>
-            <p>
-              With our unique compensation plan, you can earn passive income by
-              simply sharing your referral link with friends, family, and your
-              social network.
-            </p>
-            <p>
-              We offer multiple earning streams including direct referrals, team
-              bonuses, and residual income from your network's activities.
-            </p>
-            <p>
-              Our platform is designed to be simple, transparent, and rewarding.
-              Whether you're looking for a side hustle or a full-time income
-              opportunity, Affiliate Equity provides the tools and support you
-              need to succeed.
-            </p>
-            <p>
-              Join thousands of satisfied affiliates who are already earning
-              with us. Your financial freedom starts here!
-            </p>
+
+            <div class="benefits-grid">
+              <div class="benefit-card">
+                <div class="benefit-icon">
+                  <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3 class="benefit-title">High Commissions</h3>
+                <p class="benefit-description">
+                  Earn up to 30% commission on every referral with our
+                  multi-tier program.
+                </p>
+              </div>
+
+              <div class="benefit-card">
+                <div class="benefit-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="benefit-title">Residual Income</h3>
+                <p class="benefit-description">
+                  Get paid not just once, but ongoing commissions from your
+                  network's activity.
+                </p>
+              </div>
+
+              <div class="benefit-card">
+                <div class="benefit-icon">
+                  <i class="fas fa-gift"></i>
+                </div>
+                <h3 class="benefit-title">Performance Bonuses</h3>
+                <p class="benefit-description">
+                  Additional rewards for top performers with monthly and
+                  quarterly bonuses.
+                </p>
+              </div>
+            </div>
+
             <button
               id="continueBtn"
               class="btn btn-secondary"
               style="margin-top: 20px"
             >
-              Continue to Registration
+              Join Now - It's Free <i class="fas fa-arrow-right ml-2"></i>
             </button>
           </div>
         </div>
       </section>
 
+      <!-- Testimonials Section -->
+      <section class="testimonials-section">
+        <div class="container">
+          <h2 class="testimonials-title">What Our Affiliates Say</h2>
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <p class="testimonial-content">
+                "I've been with Affiliate Equity for 6 months and it's
+                transformed my income. The commissions are generous and the
+                support team is always helpful."
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">JD</div>
+                <div>
+                  <div class="testimonial-name">John D.</div>
+                  <div class="testimonial-role">Top Affiliate</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p class="testimonial-content">
+                "As a stay-at-home mom, this program has given me financial
+                independence. I earn enough to contribute significantly to our
+                household."
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">SM</div>
+                <div>
+                  <div class="testimonial-name">Sarah M.</div>
+                  <div class="testimonial-role">Affiliate since 2024</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p class="testimonial-content">
+                "The training resources and marketing materials make it so easy
+                to promote. I've built a steady income stream in just 3 months."
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">TK</div>
+                <div>
+                  <div class="testimonial-name">Tunde K.</div>
+                  <div class="testimonial-role">Digital Marketer</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="faq-section">
+        <div class="container">
+          <h2 class="faq-title">Frequently Asked Questions</h2>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              How does the affiliate program work?
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Our affiliate program allows you to earn commissions by
+                referring new members to our platform. You'll receive a unique
+                referral link to share with your network. When someone signs up
+                through your link and purchases a coupon code, you earn a
+                commission.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              How much can I earn as an affiliate?
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Our standard commission rate is 30% of each coupon sale you
+                generate. Top performers can earn additional bonuses and move up
+                to higher commission tiers with even greater earning potential.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              Why do I need to purchase a coupon code?
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                The coupon code serves as your membership access to our
+                affiliate program. It helps maintain the quality of our network
+                by ensuring all members are serious about building their
+                affiliate business. The one-time fee also gives you access to
+                our premium marketing resources and support.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              How do I get paid?
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Commissions are paid weekly via bank transfer or mobile money to
+                your preferred payment method. You can request payment once your
+                balance reaches the minimum payout threshold of ₦5,000.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Registration Form -->
       <div class="container">
         <div id="registrationForm" class="form-container">
-          <h2 class="form-title">Create Your Account</h2>
+          <h2 class="form-title">Create Your Affiliate Account</h2>
           <form id="signupForm">
-            <div class="form-group tour-highlight" id="username-tour">
+            <div class="form-group">
               <label for="username">Username</label>
               <input
                 type="text"
                 id="username"
                 class="form-control"
                 required
-                placeholder="Choose a username"
+                placeholder="Choose your affiliate username"
+              />
+              <span class="form-note"
+                >This will be your public affiliate name</span
+              >
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                required
+                placeholder="Your active email address"
               />
             </div>
-            <div class="form-group tour-highlight" id="phone-tour">
+            <div class="form-group">
               <label for="phone">Phone Number</label>
               <input
                 type="tel"
@@ -570,18 +1055,20 @@
                 required
                 placeholder="Your active phone number"
               />
+              <span class="form-note">We'll send verification code</span>
             </div>
-            <div class="form-group tour-highlight" id="password-tour">
+            <div class="form-group">
               <label for="password">Password</label>
               <input
                 type="password"
                 id="password"
                 class="form-control"
                 required
-                placeholder="Create a strong password"
+                placeholder="Create a secure password"
               />
+              <span class="form-note">Minimum 8 characters with numbers</span>
             </div>
-            <div class="form-group tour-highlight" id="coupon-tour">
+            <div class="form-group">
               <label for="coupon">Coupon Code</label>
               <input
                 type="text"
@@ -590,52 +1077,89 @@
                 required
                 placeholder="Enter your coupon code"
               />
-              <small class="text-muted"
-                >Don't have a coupon? You'll need to purchase one to
-                join.</small
+              <span class="form-note"
+                >Don't have a coupon?
+                <a href="#" id="purchaseCouponLink">Purchase one here</a></span
               >
             </div>
-            <button type="submit" class="btn" style="width: 100%">
-              Register Now
+            <button
+              type="submit"
+              class="btn"
+              style="width: 100%; margin-top: 10px"
+            >
+              Activate My Affiliate Account
             </button>
           </form>
         </div>
       </div>
     </main>
 
-    <!-- Coupon Payment Modal -->
+    <!-- Coupon Purchase Modal -->
     <div id="paymentModal" class="modal">
       <div class="modal-content">
-        <span class="close-modal" id="closeModal">&times;</span>
-        <h3 class="modal-title">Purchase Coupon Code</h3>
+        <button class="close-modal" id="closeModal">&times;</button>
+        <h3 class="modal-title">Purchase Your Affiliate Coupon</h3>
+
+        <div class="payment-steps">
+          <div class="payment-step">
+            <div class="payment-step-number">1</div>
+            <div class="payment-step-content">
+              <div class="payment-step-title">Make Payment</div>
+              <div class="payment-step-description">
+                Send ₦1,500 to our payment account using the details below.
+              </div>
+            </div>
+          </div>
+
+          <div class="payment-step">
+            <div class="payment-step-number">2</div>
+            <div class="payment-step-content">
+              <div class="payment-step-title">Verify Payment</div>
+              <div class="payment-step-description">
+                Enter the sender name exactly as it appears on your bank
+                transaction.
+              </div>
+            </div>
+          </div>
+
+          <div class="payment-step">
+            <div class="payment-step-number">3</div>
+            <div class="payment-step-content">
+              <div class="payment-step-title">Receive Coupon</div>
+              <div class="payment-step-description">
+                Your coupon code will be automatically generated after
+                verification.
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="payment-details">
-          <p>
-            To join Affiliate Equity, you need to purchase a coupon code for
-            <strong>NGN 1,500</strong>.
-          </p>
-          <p><strong>Account Name:</strong> Alrahuzdata - owofinance </p>
-          <p><strong>Account Number:</strong> 6658610146 </p>
+          <p><strong>Coupon Price:</strong> ₦1,500 (one-time payment)</p>
+          <p><strong>Account Name:</strong> Affiliate Equity Ltd</p>
+          <p><strong>Account Number:</strong> 6658610146</p>
           <p><strong>Bank:</strong> Palmpay</p>
           <p>
-            After payment, enter the sender name below to verify your payment.
+            <strong>Note:</strong> Please make payment from an account that
+            matches your registration details for faster verification.
           </p>
-          <p><em>Note: Do not close this website after payment.</em></p>
         </div>
+
         <form id="paymentVerificationForm">
           <div class="form-group">
             <label for="senderName"
-              >Sender Name (as it appears in bank transaction)</label
+              >Sender Name (as shown in bank transaction)</label
             >
             <input
               type="text"
               id="senderName"
               class="form-control"
               required
-              placeholder="Enter sender name from bank"
+              placeholder="Enter the exact sender name from your payment"
             />
           </div>
           <button type="submit" class="btn" style="width: 100%">
-            Verify Payment
+            Verify My Payment
           </button>
         </form>
       </div>
@@ -644,305 +1168,165 @@
     <!-- Payment Review Modal -->
     <div id="reviewModal" class="modal">
       <div class="modal-content">
-        <h3 class="modal-title">Payment Under Review</h3>
+        <h3 class="modal-title">Verifying Your Payment</h3>
         <div class="payment-details">
           <p>
-            Your payment is being reviewed by our CEO. This usually takes less
-            than a minute.
+            We're verifying your payment details with our payment processor.
+            This usually takes less than a minute.
           </p>
-          <p>Please wait while we verify your transaction...</p>
+          <p>Please wait while we confirm your transaction...</p>
         </div>
         <div class="countdown" id="countdown">30 seconds remaining</div>
         <!-- <div class="success-message" id="successMessage">
           <i class="fas fa-check-circle"></i>
           <p>
-            Payment verified successfully! Your coupon code is:
-            <strong id="verifiedCoupon"></strong>
+            Payment verified successfully! Your affiliate account is now active.
           </p>
+          <p>Your coupon code:</p>
+          <div class="coupon-code" id="verifiedCoupon">AFF-EQ-2025</div>
           <p>You can now complete your registration.</p>
         </div> -->
       </div>
     </div>
 
-    <!-- Tour Tooltip -->
-    <div id="tourTooltip" class="tour-tooltip">
-      <h3 id="tourTitle">Welcome to Affiliate Equity</h3>
-      <p id="tourContent">
-        Let's take a quick tour to help you get started with the registration
-        process.
-      </p>
-      <div class="tour-nav">
-        <button id="skipTour" class="skip">Skip Tour</button>
-        <button id="nextTour">Next <i class="fas fa-arrow-right"></i></button>
-      </div>
-    </div>
-
     <footer>
-      <div class="container footer-content">
-        <div class="logo">
-          <i class="fas fa-hand-holding-usd"></i>
-          <span>Affiliate Equity</span>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <div class="footer-logo">
+              <i class="fas fa-hand-holding-usd"></i>
+              <span>Affiliate Equity</span>
+            </div>
+            <p class="footer-description">
+              A premium affiliate program offering generous commissions and
+              comprehensive support to help you build a sustainable online
+              income.
+            </p>
+            <div class="social-links">
+              <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a> -->
+            </div>
+          </div>
+
+          <div class="footer-links-container">
+            <h3 class="footer-heading">Quick Links</h3>
+            <ul class="footer-links">
+              <!-- <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Affiliate Program</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Contact Us</a></li> -->
+            </ul>
+          </div>
+
+          <div class="footer-links-container">
+            <h3 class="footer-heading">Resources</h3>
+            <ul class="footer-links">
+              <!-- <li><a href="#">Marketing Materials</a></li>
+              <li><a href="#">Training Videos</a></li>
+              <li><a href="#">Commission Plan</a></li>
+              <li><a href="#">Success Stories</a></li>
+              <li><a href="#">Support Center</a></li> -->
+            </ul>
+          </div>
+
+          <div class="footer-links-container">
+            <h3 class="footer-heading">Legal</h3>
+            <ul class="footer-links">
+              s
+              <!-- <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Refund Policy</a></li>
+              <li><a href="#">Cookie Policy</a></li> -->
+            </ul>
+          </div>
         </div>
-        <!-- <div class="social-links">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div> -->
-        <p class="copyright">© 2025 Affiliate Equity. All rights reserved.</p>
+
+        <div class="copyright">
+          &copy; 2024 Affiliate Equity. All rights reserved.
+        </div>
       </div>
     </footer>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Elements
-        const continueBtn = document.getElementById("continueBtn");
-        const registrationForm = document.getElementById("registrationForm");
-        const signupForm = document.getElementById("signupForm");
-        const paymentModal = document.getElementById("paymentModal");
-        const closeModal = document.getElementById("closeModal");
-        const reviewModal = document.getElementById("reviewModal");
-        const paymentVerificationForm = document.getElementById(
-          "paymentVerificationForm"
-        );
-        const countdownElement = document.getElementById("countdown");
-        const successMessage = document.getElementById("successMessage");
-        const verifiedCoupon = document.getElementById("verifiedCoupon");
-        const couponInput = document.getElementById("coupon");
+      // DOM Elements
+      const continueBtn = document.getElementById("continueBtn");
+      const purchaseCouponLink = document.getElementById("purchaseCouponLink");
+      const registrationForm = document.getElementById("registrationForm");
+      const paymentModal = document.getElementById("paymentModal");
+      const reviewModal = document.getElementById("reviewModal");
+      const closeModal = document.getElementById("closeModal");
+      const paymentVerificationForm = document.getElementById(
+        "paymentVerificationForm"
+      );
+      const successMessage = document.getElementById("successMessage");
+      const countdown = document.getElementById("countdown");
+      const faqQuestions = document.querySelectorAll(".faq-question");
 
-        // Tour elements
-        const tourTooltip = document.getElementById("tourTooltip");
-        const tourTitle = document.getElementById("tourTitle");
-        const tourContent = document.getElementById("tourContent");
-        const nextTourBtn = document.getElementById("nextTour");
-        const skipTourBtn = document.getElementById("skipTour");
-
-        // Tour steps
-        const tourSteps = [
-          {
-            element: "username-tour",
-            title: "Username",
-            content:
-              "Choose a unique username that will identify you on our platform. This will be visible to your referrals.",
-            position: "bottom",
-          },
-          {
-            element: "phone-tour",
-            title: "Phone Number",
-            content:
-              "Enter your active phone number. This will be used for account verification and important notifications.",
-            position: "bottom",
-          },
-          {
-            element: "password-tour",
-            title: "Password",
-            content:
-              "Create a strong password with at least 8 characters, including numbers and special characters.",
-            position: "bottom",
-          },
-          {
-            element: "coupon-tour",
-            title: "Coupon Code",
-            content:
-              "You need a valid coupon code to register. If you don't have one, you'll be prompted to purchase after form submission.",
-            position: "top",
-          },
-        ];
-
-        let currentStep = 0;
-        let tourActive = false;
-
-        // Continue to registration
-        continueBtn.addEventListener("click", function () {
-          this.style.display = "none";
-          registrationForm.classList.add("active");
-
-          // Start tour after a short delay
-          setTimeout(() => {
-            startTour();
-          }, 500);
+      // Show registration form when continue button is clicked
+      continueBtn.addEventListener("click", () => {
+        registrationForm.classList.add("active");
+        window.scrollTo({
+          top: registrationForm.offsetTop - 100,
+          behavior: "smooth",
         });
+      });
 
-        // Form submission
-        signupForm.addEventListener("submit", function (e) {
-          e.preventDefault();
+      // Show payment modal when purchase coupon link is clicked
+      purchaseCouponLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        paymentModal.classList.add("active");
+      });
 
-          const couponCode = couponInput.value.trim();
+      // Close modal when close button is clicked
+      closeModal.addEventListener("click", () => {
+        paymentModal.classList.remove("active");
+      });
 
-          if (couponCode === "QUITY4REAL") {
-            // Valid coupon - simulate successful registration
-            alert("Registration successful! Welcome to Affiliate Equity.");
-            // In a real app, you would submit the form to your server
-          } else {
-            // Invalid coupon - show payment modal
-            paymentModal.classList.add("active");
-            document.body.style.overflow = "hidden";
+      // Handle payment verification form submission
+      paymentVerificationForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        paymentModal.classList.remove("active");
+        reviewModal.classList.add("active");
+        successMessage.style.display = "none";
+
+        // Simulate payment verification process
+        let seconds = 30;
+        const timer = setInterval(() => {
+          seconds--;
+          countdown.textContent = `${seconds} seconds remaining`;
+
+          if (seconds <= 0) {
+            clearInterval(timer);
+            countdown.style.display = "none";
+            successMessage.style.display = "block";
+
+            // Generate random coupon code
+            const randomCode =
+              "AFF-EQ-" + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById("verifiedCoupon").textContent = randomCode;
+
+            // Auto-fill coupon field in registration form
+            document.getElementById("coupon").value = randomCode;
           }
+        }, 1000);
+      });
+
+      // FAQ toggle functionality
+      faqQuestions.forEach((question) => {
+        question.addEventListener("click", () => {
+          const faqItem = question.parentElement;
+          faqItem.classList.toggle("active");
         });
+      });
 
-        // Close modal
-        closeModal.addEventListener("click", function () {
-          paymentModal.classList.remove("active");
-          document.body.style.overflow = "auto";
-        });
-
-        // Payment verification
-        paymentVerificationForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const senderName = document.getElementById("senderName").value.trim();
-
-          if (senderName) {
-            paymentModal.classList.remove("active");
-            reviewModal.classList.add("active");
-
-            // Start countdown
-            let seconds = 30;
-            const countdownInterval = setInterval(() => {
-              seconds--;
-              countdownElement.textContent = `${seconds} seconds remaining`;
-
-              if (seconds <= 0) {
-                clearInterval(countdownInterval);
-                countdownElement.style.display = "none";
-                verifiedCoupon.textContent = "QUITY4REAL";
-                successMessage.style.display = "block";
-
-                // Auto-fill coupon code after verification
-                setTimeout(() => {
-                  reviewModal.classList.remove("active");
-                  document.body.style.overflow = "auto";
-                  couponInput.value = "QUITY4REAL";
-                }, 3000);
-              }
-            }, 1000);
-          }
-        });
-
-        // Prevent closing the website
-        window.addEventListener("beforeunload", function (e) {
-          if (
-            paymentModal.classList.contains("active") ||
-            reviewModal.classList.contains("active")
-          ) {
-            e.preventDefault();
-            e.returnValue =
-              "Are you sure you want to leave? Your payment verification might be interrupted.";
-            return e.returnValue;
-          }
-        });
-
-        // Tour functions
-        function startTour() {
-          tourActive = true;
-          currentStep = 0;
-          showTourStep();
+      // Close review modal when clicking outside
+      window.addEventListener("click", (e) => {
+        if (e.target === reviewModal) {
+          reviewModal.classList.remove("active");
         }
-
-        function showTourStep() {
-          if (currentStep >= tourSteps.length) {
-            endTour();
-            return;
-          }
-
-          const step = tourSteps[currentStep];
-          const element = document.getElementById(step.element);
-
-          // Position the tooltip
-          tourTooltip.style.display = "block";
-          tourTooltip.className = `tour-tooltip ${step.position}`;
-          tourTitle.textContent = step.title;
-          tourContent.textContent = step.content;
-
-          const rect = element.getBoundingClientRect();
-
-          switch (step.position) {
-            case "top":
-              tourTooltip.style.top = `${
-                rect.top - tourTooltip.offsetHeight - 10
-              }px`;
-              tourTooltip.style.left = `${
-                rect.left + rect.width / 2 - tourTooltip.offsetWidth / 2
-              }px`;
-              break;
-            case "right":
-              tourTooltip.style.top = `${
-                rect.top + rect.height / 2 - tourTooltip.offsetHeight / 2
-              }px`;
-              tourTooltip.style.left = `${rect.right + 10}px`;
-              break;
-            case "bottom":
-              tourTooltip.style.top = `${rect.bottom + 10}px`;
-              tourTooltip.style.left = `${
-                rect.left + rect.width / 2 - tourTooltip.offsetWidth / 2
-              }px`;
-              break;
-            case "left":
-              tourTooltip.style.top = `${
-                rect.top + rect.height / 2 - tourTooltip.offsetHeight / 2
-              }px`;
-              tourTooltip.style.left = `${
-                rect.left - tourTooltip.offsetWidth - 10
-              }px`;
-              break;
-          }
-
-          // Highlight the element
-          element.style.boxShadow = "0 0 0 3px rgba(74, 107, 255, 0.5)";
-          element.style.transition = "box-shadow 0.3s ease";
-        }
-
-        function endTour() {
-          tourTooltip.style.display = "none";
-          tourActive = false;
-
-          // Remove highlights
-          tourSteps.forEach((step) => {
-            const element = document.getElementById(step.element);
-            if (element) {
-              element.style.boxShadow = "none";
-            }
-          });
-        }
-
-        nextTourBtn.addEventListener("click", function () {
-          // Remove highlight from current step
-          if (currentStep < tourSteps.length) {
-            const currentElement = document.getElementById(
-              tourSteps[currentStep].element
-            );
-            currentElement.style.boxShadow = "none";
-          }
-
-          currentStep++;
-          showTourStep();
-        });
-
-        skipTourBtn.addEventListener("click", endTour);
-
-        // Close modal when clicking outside
-        window.addEventListener("click", function (e) {
-          if (e.target === paymentModal) {
-            paymentModal.classList.remove("active");
-            document.body.style.overflow = "auto";
-          }
-          if (e.target === reviewModal) {
-            // Don't allow closing review modal by clicking outside
-            e.preventDefault();
-          }
-        });
-
-        // Add some animations for better UX
-        const introContent = document.querySelector(".intro-content");
-        introContent.addEventListener("mouseenter", function () {
-          this.style.transform = "translateY(-5px)";
-          this.style.boxShadow = "0 15px 40px rgba(0, 0, 0, 0.1)";
-        });
-
-        introContent.addEventListener("mouseleave", function () {
-          this.style.transform = "translateY(0)";
-          this.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.05)";
-        });
       });
     </script>
   </body>
